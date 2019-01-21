@@ -35,7 +35,9 @@ This is the top level object that is sent to the Buyer. Each bid request sent fr
 | imp | array of objects | Array of objects representing the impressions offered, for more information, see the [Impression Object](#impression-object) section. |
 | site | object | The Site Object describing the site, for more information, see the [Site Object](#site-object) section.  |
 
+
 #### Device Object
+
 
 | Key | Type | Description |
 | --- | ---- | ----------- |
@@ -51,7 +53,9 @@ This is the top level object that is sent to the Buyer. Each bid request sent fr
 | pxratio | float | The ratio of physical pixels to device independent pixels. |
 | ipv6 | string | IP address in IPv6. |
 
+
 ##### Geo Object
+
 
 | Key | Type | Description |
 | --- | ---- | ----------- |
@@ -64,20 +68,26 @@ This is the top level object that is sent to the Buyer. Each bid request sent fr
 | zip | integer | Zip/postal code. |
 | utcoffset | integer | Local time as the number +/- of minutes from UTC. |
 
+
 #### User Object
+
 
 | Key | Type | Description |
 | --- | ---- | ----------- |
 | id | string | Unique BLIINK ID of this user |
 | consent | string | The binary encoding scheme that is passed in base64 URL/web safe format known as daisybit. |
 
+
 #### Source Object
+
 
 | Key | Type | Description |
 | --- | ---- | ----------- |
 | fd | integer | Indicates the entity responsible for the final impression sale decision |
 
+
 #### Ext Object
+
 
 | Key | Type | Description |
 | --- | ---- | ----------- |
@@ -88,92 +98,89 @@ This is the top level object that is sent to the Buyer. Each bid request sent fr
 | ssp | string | The Supplier identification string |
 | media_src | string | The Supplier identification string |
 
+
 #### Impression object
-```
-{ 
-  bidfloor: (float),
-  bidfloorcur: 'EUR',
-  instl: (int),
-  exp: (int),
-  displaymanager: (string),
-  displaymanagerver: (string),
-  id: (string),
-  tagid: (int),
-  banner: {Banner Object},
-  pmp: {PrivateMarket Object},
-  secure: (int),
-}
-```
+
+
+| Key | Type | Description |
+| --- | ---- | ----------- |
+| id | string | ID of the impression being shown, unique within the bid request. |
+| bidfloor | float | Bid floor in CPM as set by the Supplier |
+| bidfloorcur | string | Bid floor currency specified using ISO-4217 alpha codes. |
+| instl | integer | Specifies if the ad is an interstitial. |
+| exp | integer | Impression expiry timeout, in seconds. |
+| displaymanager | string | Name of the ad mediation partner, SDK technology. |
+| displaymanagerver | string | Version of the ad mediation partner, SDK technology. |
+| tagid | integer | Identifier for specific ad placement or ad tag that was used to initiate the auction. |
+| banner | object | The Banner Object, for more information, see the [Banner Object](#banner-object) section. |
+| pmp | object | The Banner Object, for more information, see the [PrivateMarket Object](#privatemarket-object) section. |
+| secure | integer | Specifies if the page is SSL compliant. |
+
 
 ##### Banner Object
-```
-{
-  topframe: (int),
-  battr: [(int)],
-  btype: [(int)],
-  pos: (int),
-  mimes: [(string)],
-  id: (string),
-  h: (int),
-  w: (int),
-  format: [
-    {BannerFormat Object}
-  }],
-  ext:
-    extra_sizes: [{
-      h: (int),
-      w: (int),
-    }],
-  }
-}
-```
+
+
+| Key | Type | Description |
+| --- | ---- | ----------- |
+| id | string | Unique identifier for the banner object |
+| topframe | integer | Indicates if the banner is in the top frame as opposed to an iframe. |
+| battr | array of integers | Blocked creative attributes as defined in the OpenRTB protocol. |
+| btype | array of integers | Blocked banner ad types as defined in the OpenRTB protocol. |
+| pos | integer | Ad Position as defined in the OpenRTB protocol. |
+| mimes | array of strings | Specifies the content MIME types supported. |
+| h | integer | Height of the impression in pixels. |
+| w | integer | Width of the impression in pixels. |
+| format | array of objects | Array of objects denoting the alternative sizes that may be used for bidding, for more information, see the [BannerFormat Object](#bannerformat-object) section. |
+
 
 ###### BannerFormat Object
-```
-{
-  h: (int),
-  w: (int)
-}
-```
+
+
+| Key | Type | Description |
+| --- | ---- | ----------- |
+| h | integer | Height of the impression in pixels. |
+| w | integer | Width of the impression in pixels. |
+
 
 ##### PrivateMarket Object
-```
-{
-  deals: [
-   {Deal Object}
-  ],
-  private_auction: (int)
-}
-```
+
+
+| Key | Type | Description |
+| --- | ---- | ----------- |
+| deals | array of objects | Array of Deal objects, for more information, see the [Deal Object](#deal-object) section. |
+| private_auction | integer | A value of 1 indicates that only bids submitted inside pmp.deals will take part in the auction. A value of 0 indicates that bids without deal information may also be considered for serving. |
+
 
 ###### Deal Object
-```
-{
-  bidfloorcur: (string),
-  id: (string),
-  bidfloor: (float),
-  at: (int)
-}
-```
+
+
+| Key | Type | Description |
+| --- | ---- | ----------- |
+| id | string | Deal ID |
+| bidfloorcur | string | Bid floor currency specified using ISO-4217 alpha codes. |
+| bidfloor | float | Deal price in CPM. |
+| at | integer | Auction type. |
+
 
 #### Site Object
-```
-{
-  publisher: {Publisher Object},
-  domain: (string),
-  ref: (string),
-  page: (string),
-  id: (string),
-  name: (string)
-}
-```
+
+
+| Key | Type | Description |
+| --- | ---- | ----------- |
+| id | string | An exchange specific identifier |
+| publisher | object | Publisher object, for more information, see the [Publisher Object](#publisher-object) section. |
+| domain | string | Domain of the site, used for advertiser side blocking. |
+| ref | string | Referrer URL that caused navigation to the current page. |
+| page | string | URL of the page where the impression will be shown. |
+| name | string | Site name. |
+
 
 ##### Publisher Object
 
-```
-{
-  domain: (string),
-  id: (string),
-  name: (string)
-}
-```
+
+| Key | Type | Description |
+| --- | ---- | ----------- |
+| id | string | An exchange specific identifier. |
+| domain | string | The highest level domain of the publisher. |
+| name | string | Publisher name. |
+
